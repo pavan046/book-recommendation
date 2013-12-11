@@ -18,6 +18,9 @@ public class EntityTypeChecker
 
 	private HashMap<String, ArrayList<String>> bookNames;
 
+	/**
+	 * Default Constructor
+	 */
 	public EntityTypeChecker()
 	{
 		this.bookNames = new HashMap<String, ArrayList<String>>();
@@ -68,6 +71,11 @@ public class EntityTypeChecker
 		this.populateBookNamesHashMap( EntityTypeChecker.BOOKLIST_FILENAME );
 	}
 
+	/**
+	 * This method populates the hashmap with actual book names by reading the input file
+	 * 
+	 * @param filePath
+	 */
 	public void populateBookNamesHashMap( String filePath )
 	{
 		BufferedReader reader = null;
@@ -90,7 +98,7 @@ public class EntityTypeChecker
 					{
 						bookNames = this.bookNames.get( firstString );
 						// In case a bookname starts with a number or some other character than a letter.
-						if( bookNames == null )
+						if ( bookNames == null )
 						{
 							bookNames = new ArrayList<String>();
 						}
@@ -118,21 +126,37 @@ public class EntityTypeChecker
 		}
 	}
 
-	public boolean isABookType(String entityName)
+	/**
+	 * This method returns whether a given entity is of type Book or not.
+	 * 
+	 * @param entityName
+	 * @return
+	 */
+	public boolean isABookType( String entityName )
 	{
 		String firstString = Character.toString( entityName.charAt( 0 ) ).toLowerCase();
 		ArrayList<String> bookNames = this.bookNames.get( firstString );
-		if( bookNames != null )
+		if ( bookNames != null )
 		{
 			return bookNames.contains( entityName );
 		}
 		return false;
 	}
 
-	public static void main(String args[])
+	public HashMap<String, ArrayList<String>> getBookNames()
+	{
+		return bookNames;
+	}
+
+	public void setBookNames( HashMap<String, ArrayList<String>> bookNames )
+	{
+		this.bookNames = bookNames;
+	}
+
+	public static void main( String args[] )
 	{
 		EntityTypeChecker typeChecker = new EntityTypeChecker();
 		System.out.println( typeChecker.isABookType( "A_Modest_Proposal" ) );
 	}
-	
+
 }
