@@ -38,12 +38,13 @@ public class SpotlightRelatedness {
 	 * @param normalize
 	 * @return
 	 */
-	private Map<String, Double> getRelatedEntities(String entity1, boolean normalize){
+	public Map<String, Double> getRelatedEntities(String entity1, boolean normalize, 
+			int numberOfSuggestions){
 		Map<String, Double> relatedEntities = new HashMap<String, Double>();
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("uri", entity1); 
 		// FIXME: This parameter is hard coded now. This should be a variable
-		params.put("n", "20");
+		params.put("n", String.valueOf(numberOfSuggestions));
 		String jsonResponse = connector.response(params, false);
 		relatedEntities = serializeJsonResponse(jsonResponse);
 		//This should normalize the values of related entities
@@ -79,7 +80,6 @@ public class SpotlightRelatedness {
 	 * @return
 	 */
 	private Map<String, Double> serializeJsonResponse(String json){
-		System.out.println(json);
 		Map<String, Double> serializedEntities = new HashMap<String, Double>();
 		try {
 			JSONArray array = new JSONArray(json);
@@ -101,7 +101,7 @@ public class SpotlightRelatedness {
 
 	public static void main(String[] args) {
 		SpotlightRelatedness relatedness = new SpotlightRelatedness("http://spotlight.dbpedia.org/related/");
-		Map<String, Double> relatedEntites = relatedness.getRelatedEntities("Adidas", true);
+		Map<String, Double> relatedEntites = relatedness.getRelatedEntities("Adidas", true, 20);
 		System.out.println(relatedEntites);
 	}
 	

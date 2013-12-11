@@ -1,4 +1,4 @@
-package org.knoesis.eswc2014.lodchallange;
+package org.knoesis.dbpedia;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * This class checks what are the types of DBPedia entities that are passed to it and filters out only Books.
+ * This class checks what are the types of DBPedia entities
+ *  that are passed to it and filters out only Books.
  * 
  * @author sanjaya@knoesis.org
  */
@@ -24,7 +25,8 @@ public class EntityTypeChecker
 	}
 
 	/**
-	 * This method initializes the hashmap. All book names are index on their first letter to efficiently access them.
+	 * This method initializes the hashmap. All book names 
+	 * are index on their first letter to efficiently access them.
 	 */
 	private void initializeKeywordsMap()
 	{
