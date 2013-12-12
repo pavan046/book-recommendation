@@ -8,6 +8,7 @@ import org.knoesis.dbpedia.EntityTypeChecker;
 import org.knoesis.recommendations.mergemetric.SimpleMerger;
 import org.knoesis.relatedness.SpotlightRelatedness;
 import org.knoesis.userprofile.DummyUserProfile;
+import org.knoesis.userprofile.TSVUserProfileGenerator;
 import org.knoesis.utils.ValueComparator;
 
 /**
@@ -22,13 +23,15 @@ public class TopNBookRecommendations {
 		SpotlightRelatedness spotlightRelatedness = new SpotlightRelatedness("http://spotlight.dbpedia.org/related/");
 		// TODO: Entity Type Checker
 		EntityTypeChecker entityTypeCheck = new EntityTypeChecker();
-		// TODO: User Profilles 
-		DummyUserProfile userProfileGenerator = new DummyUserProfile();
+		// TODO: User Profilles
+		// Dummy Profile
+		//DummyUserProfile userProfileGenerator = new DummyUserProfile();
+		TSVUserProfileGenerator userProfileGenerator = new TSVUserProfileGenerator("data/profiles/UserBooksPablo.tsv");
 		Map<String, Double> userBookProfile = new HashMap<String, Double>();
 		Map<String, Double> finalRecommendations = new HashMap<>();
 		SimpleMerger merger;
 		// TODO: Read the user profile
-		
+
 		// Initializing merger
 		userBookProfile = userProfileGenerator.generateUserProfile();
 		merger = new SimpleMerger(userBookProfile.size());
@@ -42,14 +45,20 @@ public class TopNBookRecommendations {
 					relatedBooks.put(entity, relatedEntities.get(entity));
 			}
 			// Perform a function to merge the recommendations based on all books
-			System.out.println(book +":" + relatedBooks.size());
+			System.out.println("Existing Book: " +book +":" + relatedBooks.size());
 			merger.merge(relatedBooks);
 		}
 		finalRecommendations = merger.getFinalRecommendations();
 		ValueComparator bvc =  new ValueComparator(finalRecommendations);
-        TreeMap<String,Double> sorted_map = new TreeMap<String,Double>(bvc);
-        sorted_map.putAll(finalRecommendations);
-		System.out.println(sorted_map);
+		TreeMap<String,Double> sorted_map = new TreeMap<String,Double>(bvc);
+		sorted_map.putAll(finalRecommendations);
+		//System.out.println(sorted_map);
+		System.out.println("=============Recommendations============");
+		for(String book: sorted_map.keySet()){
+			if(userBookProfile.keySet().contains(book))
+				continue;
+			System.out.println(book+":"+finalRecommendations.get(book));
+		}
 		System.out.println(merger.getFinalRecommendations().size());
 	}
 }
