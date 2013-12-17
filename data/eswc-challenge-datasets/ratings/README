@@ -1,0 +1,9 @@
+
+----DBbook_training_ratings--------
+
+This file contains the ratings to use for training the model for the Task 1.
+
+Each line in the file is composed by:  userID \t itemID \t rating.
+The ratings are in scale 0-5. 
+The training set contains 75558 ratings. There are 6181 users and 6166 items which have been rated by at least one user. Each user has between 5 and 25 ratings.
+The itemID are the same of the ones in the Mapping file.

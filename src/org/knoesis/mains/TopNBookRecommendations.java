@@ -38,11 +38,12 @@ public class TopNBookRecommendations {
 		// For each of the books call the spotlight relatedness to get the top books
 		for(String book: userBookProfile.keySet()){
 			Map<String, Double> relatedEntities = 
-					spotlightRelatedness.getRelatedEntities(book, true, 200);
+					spotlightRelatedness.getRelatedEntities(book, true, 2000);
 			Map<String, Double> relatedBooks = new HashMap<>();
 			for(String entity: relatedEntities.keySet()){
-				if(entityTypeCheck.isABookType(entity))
+				if(entityTypeCheck.isABookType(entity)){
 					relatedBooks.put(entity, relatedEntities.get(entity));
+				}
 			}
 			// Perform a function to merge the recommendations based on all books
 			System.out.println("Existing Book: " +book +":" + relatedBooks.size());

@@ -156,7 +156,7 @@ public class EntityTypeChecker
 	public static void main( String args[] )
 	{
 		EntityTypeChecker typeChecker = new EntityTypeChecker();
-		System.out.println( typeChecker.isABookType( "A_Modest_Proposal" ) );
+		System.out.println( typeChecker.isABookType( "Bhagavad_Gita_(Sargeant)" ) );
 	}
 
 }

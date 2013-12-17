@@ -1,0 +1,9 @@
+
+----DBbook_training_binary--------
+
+This file contains the binary relevance data to use for training the model for the Task 2 and 3.
+ 
+Each line in the file is composed by:  userID \t itemID \t rating.
+The ratings are in binary scale. 1 means that the item is relevant for the user, 0 means irrelevant.
+The training set contains 72371 ratings. There are 6181 users and 6733 items which have been rated by at least one user. Each user has between 5 and 25 ratings.
+The itemID are the same of the ones in the Mapping file.
