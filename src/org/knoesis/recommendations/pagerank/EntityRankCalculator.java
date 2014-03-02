@@ -54,7 +54,7 @@ public class EntityRankCalculator {
 				for (int j = 0; j < iEntityCount; j++){ // Get all the connected edges for the given entity 
 					
 					if(rowStochasticSimilarityMatrix[iElement][j]!= 0){ // calculate the sum of contributing value from each connected edge
-						dWeightedSum = dWeightedSum + entityRankVector[j] * // Here it will take the old value even though it might be updated
+						dWeightedSum = dWeightedSum + entityRankVector[j] * 
 								rowStochasticSimilarityMatrix[j][iElement];
 						
 					}
