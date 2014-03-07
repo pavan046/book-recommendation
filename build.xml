@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="book-recommendation">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../Software/eclipse/eclipse"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="book-recommendation.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/algs4.jar"/>
+        <pathelement location="lib/antlr-2.7.7.jar"/>
+        <pathelement location="lib/arq-2.8.7.jar"/>
+        <pathelement location="lib/bliki-addons-3.0.19.jar"/>
+        <pathelement location="lib/bliki-core-3.0.19.jar"/>
+        <pathelement location="lib/bliki-pdf-3.0.19.jar"/>
+        <pathelement location="lib/bzip2.jar"/>
+        <pathelement location="lib/cglib-2.2.2.jar"/>
+        <pathelement location="lib/clj-time-0.3.0.jar"/>
+        <pathelement location="lib/clojure-1.2.0.jar"/>
+        <pathelement location="lib/clojure-contrib-1.2.0.jar"/>
+        <pathelement location="lib/clout-0.4.1.jar"/>
+        <pathelement location="lib/collections-generic-4.01.jar"/>
+        <pathelement location="lib/colt-1.2.0.jar"/>
+        <pathelement location="lib/commons-beanutils-1.8.2.jar"/>
+        <pathelement location="lib/commons-beanutils-1.8.3.jar"/>
+        <pathelement location="lib/commons-beanutils-core-1.8.3.jar"/>
+        <pathelement location="lib/commons-cli-1.2.jar"/>
+        <pathelement location="lib/commons-codec-1.3.jar"/>
+        <pathelement location="lib/commons-codec-1.4.jar"/>
+        <pathelement location="lib/commons-codec-1.5.jar"/>
+        <pathelement location="lib/commons-collections-3.2.jar"/>
+        <pathelement location="lib/commons-compress-1.5.jar"/>
+        <pathelement location="lib/commons-el-1.0.jar"/>
+        <pathelement location="lib/commons-exec-1.1.jar"/>
+        <pathelement location="lib/commons-fileupload-1.2.1.jar"/>
+        <pathelement location="lib/commons-httpclient-3.0.1.jar"/>
+        <pathelement location="lib/commons-httpclient-3.1.jar"/>
+        <pathelement location="lib/commons-io-1.4.jar"/>
+        <pathelement location="lib/commons-lang-2.3.jar"/>
+        <pathelement location="lib/commons-lang-2.5.jar"/>
+        <pathelement location="lib/commons-logging-1.0.4.jar"/>
+        <pathelement location="lib/commons-logging-1.1.1.jar"/>
+        <pathelement location="lib/commons-logging-1.1.jar"/>
+        <pathelement location="lib/commons-logging-api-1.0.4.jar"/>
+        <pathelement location="lib/commons-net-1.4.1.jar"/>
+        <pathelement location="lib/compojure-0.6.4.jar"/>
+        <pathelement location="lib/concurrent-1.3.4.jar"/>
+        <pathelement location="lib/core-3.1.1.jar"/>
+        <pathelement location="lib/core.incubator-0.1.0.jar"/>
+        <pathelement location="lib/cron4j-2.2.5.jar"/>
+        <pathelement location="lib/dsiutils-1.0.3.jar"/>
+        <pathelement location="lib/EntityRel.jar"/>
+        <pathelement location="lib/fastutil5-5.1.1.jar"/>
+        <pathelement location="lib/filterbuilder.jar"/>
+        <pathelement location="lib/hadoop-0.20.2-core.jar"/>
+        <pathelement location="lib/hiccup-0.3.6.jar"/>
+        <pathelement location="lib/hsqldb-1.8.0.10.jar"/>
+        <pathelement location="lib/htmllexer.jar"/>
+        <pathelement location="lib/htmlparser.jar"/>
+        <pathelement location="lib/httpclient-4.0.1.jar"/>
+        <pathelement location="lib/httpclient-4.1.2.jar"/>
+        <pathelement location="lib/httpcore-4.0.1.jar"/>
+        <pathelement location="lib/httpcore-4.1.3.jar"/>
+        <pathelement location="lib/icu4j-3.4.4.jar"/>
+        <pathelement location="lib/j3d-core-1.3.1.jar"/>
+        <pathelement location="lib/jasper-compiler-5.5.12.jar"/>
+        <pathelement location="lib/jasper-runtime-5.5.12.jar"/>
+        <pathelement location="lib/jena-arq-2.9.0-incubating.jar"/>
+        <pathelement location="lib/jena-core-2.7.0-incubating.jar"/>
+        <pathelement location="lib/jena-iri-0.9.0-incubating.jar"/>
+        <pathelement location="lib/jets3t-0.6.1.jar"/>
+        <pathelement location="lib/jetty-6.1.14.jar"/>
+        <pathelement location="lib/jetty-6.1.26.jar"/>
+        <pathelement location="lib/jetty-util-6.1.14.jar"/>
+        <pathelement location="lib/jetty-util-6.1.26.jar"/>
+        <pathelement location="lib/jgrapht-jdk1.6.jar"/>
+        <pathelement location="lib/jline-0.9.94.jar"/>
+        <pathelement location="lib/joda-time-1.6.jar"/>
+        <pathelement location="lib/JSAP-2.1.jar"/>
+        <pathelement location="lib/json.jar"/>
+        <pathelement location="lib/jsp-2.1-6.1.11.jar"/>
+        <pathelement location="lib/jung-3d-2.0.1.jar"/>
+        <pathelement location="lib/jung-3d-demos-2.0.1.jar"/>
+        <pathelement location="lib/jung-algorithms-2.0.1.jar"/>
+        <pathelement location="lib/jung-api-2.0.1.jar"/>
+        <pathelement location="lib/jung-graph-impl-2.0.1.jar"/>
+        <pathelement location="lib/jung-io-2.0.1.jar"/>
+        <pathelement location="lib/jung-jai-2.0.1.jar"/>
+        <pathelement location="lib/jung-jai-samples-2.0.1.jar"/>
+        <pathelement location="lib/jung-samples-2.0.1.jar"/>
+        <pathelement location="lib/jung-visualization-2.0.1.jar"/>
+        <pathelement location="lib/junit-3.8.1.jar"/>
+        <pathelement location="lib/jvyaml-1.0.0.jar"/>
+        <pathelement location="lib/jzmq-2.1.0.jar"/>
+        <pathelement location="lib/kfs-0.2.2.jar"/>
+        <pathelement location="lib/langdetect-nutch.jar"/>
+        <pathelement location="lib/langdetect.jar"/>
+        <pathelement location="lib/libthrift7-0.7.0.jar"/>
+        <pathelement location="lib/log4j-1.2.15.jar"/>
+        <pathelement location="lib/log4j-1.2.16.jar"/>
+        <pathelement location="lib/lucene-core-3.6.0.jar"/>
+        <pathelement location="lib/lucene-core-3.6.1.jar"/>
+        <pathelement location="lib/lucene-test-framework-3.6.0.jar"/>
+        <pathelement location="lib/mockito-all-1.8.0.jar"/>
+        <pathelement location="lib/mysql-connector-java-5.1.13.jar"/>
+        <pathelement location="lib/nekohtml-1.9.13.jar"/>
+        <pathelement location="lib/ontospread-0.1-SNAPSHOT.jar"/>
+        <pathelement location="lib/org.mortbay.jetty.jar"/>
+        <pathelement location="lib/oro-2.0.8.jar"/>
+        <pathelement location="lib/rdf2rdf-1.0.1-2.3.1.jar"/>
+        <pathelement location="lib/ring-core-0.3.10.jar"/>
+        <pathelement location="lib/ring-jetty-adapter-0.3.11.jar"/>
+        <pathelement location="lib/ring-servlet-0.3.11.jar"/>
+        <pathelement location="lib/servlet-api-2.5-20081211.jar"/>
+        <pathelement location="lib/servlet-api-2.5-6.1.14.jar"/>
+        <pathelement location="lib/servlet-api-2.5.jar"/>
+        <pathelement location="lib/sitecapturer.jar"/>
+        <pathelement location="lib/slf4j-api-1.4.3.jar"/>
+        <pathelement location="lib/slf4j-api-1.6.4.jar"/>
+        <pathelement location="lib/slf4j-log4j12-1.4.3.jar"/>
+        <pathelement location="lib/slf4j-log4j12-1.5.8.jar"/>
+        <pathelement location="lib/stax-api-1.0.1.jar"/>
+        <pathelement location="lib/storm-0.5.4.jar"/>
+        <pathelement location="lib/stringtemplate-3.2.jar"/>
+        <pathelement location="lib/thumbelina.jar"/>
+        <pathelement location="lib/tools.macro-0.1.0.jar"/>
+        <pathelement location="lib/twitter4j-core-3.0.3.jar"/>
+        <pathelement location="lib/vecmath-1.3.1.jar"/>
+        <pathelement location="lib/wikixmlj-r43.jar"/>
+        <pathelement location="lib/wstx-asl-3.2.6.jar"/>
+        <pathelement location="lib/xerces-2.9.1.jar"/>
+        <pathelement location="lib/xercesImpl-2.10.0.jar"/>
+        <pathelement location="lib/xercesImpl.jar"/>
+        <pathelement location="lib/xml-apis-1.4.01.jar"/>
+        <pathelement location="lib/xml-apis.jar"/>
+        <pathelement location="lib/xmlenc-0.52.jar"/>
+        <pathelement location="lib/zemapi-java.jar"/>
+        <pathelement location="lib/zookeeper-3.3.2.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="book-recommendation.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="EntityRankCalculator">
+        <java classname="org.knoesis.recommendations.pagerank.EntityRankCalculator" failonerror="true" fork="yes">
+            <classpath refid="book-recommendation.classpath"/>
+        </java>
+    </target>
+    <target name="UserRatingCreator">
+        <java classname="org.knoesis.recommendations.pagerank.UserRatingCreator" failonerror="true" fork="yes">
+            <classpath refid="book-recommendation.classpath"/>
+        </java>
+    </target>
+    <target name="SimilarityMatrixCreator">
+        <java classname="org.knoesis.recommendations.pagerank.SimilarityMatrixCreator" failonerror="true" fork="yes">
+            <classpath refid="book-recommendation.classpath"/>
+        </java>
+    </target>
+</project>
