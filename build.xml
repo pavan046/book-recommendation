@@ -177,19 +177,24 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="EntityRankCalculator">
+    <target name="EntityRankCalculator" depends="build-project">
         <java classname="org.knoesis.recommendations.pagerank.EntityRankCalculator" failonerror="true" fork="yes">
             <classpath refid="book-recommendation.classpath"/>
         </java>
     </target>
-    <target name="UserRatingCreator">
+    <target name="UserRatingCreator" depends="build-project">
         <java classname="org.knoesis.recommendations.pagerank.UserRatingCreator" failonerror="true" fork="yes">
             <classpath refid="book-recommendation.classpath"/>
         </java>
     </target>
-    <target name="SimilarityMatrixCreator">
+    <target name="SimilarityMatrixCreator" depends="build-project">
         <java classname="org.knoesis.recommendations.pagerank.SimilarityMatrixCreator" failonerror="true" fork="yes">
             <classpath refid="book-recommendation.classpath"/>
         </java>
     </target>
+	<target name="StochasticMatrixBuilder" depends="build-project">
+		<java classname="org.knoesis.recommendations.pagerank.StochasticMatrixBuilder" failonerror="true" fork="yes">
+	     	<classpath refid="book-recommendation.classpath"/>
+	 	</java>
+	 </target>
 </project>
