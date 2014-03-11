@@ -31,6 +31,7 @@ public class EntityRankCalculator {
 	
 	/**
 	 * Main conrtroller method will iterate over each users rating profile and create a ranked list of 
+	 * books for each user
 	 */
 	 
 	public void entityRankingUserMap(){
@@ -39,11 +40,7 @@ public class EntityRankCalculator {
 		Map<String, HashMap<String, Double>> matrix = aStochasticMatrixBuilder.mapMatrixBuilder();
 		
 		ResultHandler aResultHandler = new ResultHandler();
-		//Create the initial map
-		Map<String, Double> mapEntityRank = new HashMap<String, Double>();
-		for(String aElement: matrix.keySet()){
-			mapEntityRank.put(aElement, 0.00);
-		}
+		
 		
 		//User profiles
 		//Iterate over every user profile and calculate the rank
@@ -53,13 +50,24 @@ public class EntityRankCalculator {
 		
 		for (int i = 0; i < listOfFiles.length; i++) {//each file contains a user profile
 			 if (listOfFiles[i].isFile()) {
-				 String strFileName = listOfFiles[i].getName();
+				String strFileName = listOfFiles[i].getName();
+				
+				//Assign an initial rank to each book 
+				Map<String, Double> mapEntityRank = new HashMap<String, Double>();
+				for(String aElement: matrix.keySet()){
+					mapEntityRank.put(aElement, 1.00);
+				}
+					
 				 //Get the relevant User profile
 				 UserRatingCreator aUserRator = new UserRatingCreator();
 				 Map<String, Double> mapOfUserProfile = aUserRator.userProfileGenerator(listOfFiles[i]);
+				 
+				 //Calculate the personalized page rank
 				 System.out.println("Begin page rank"+System.currentTimeMillis());
 				 Map<String, Double> newPersonalizedRank = calculateEntityRankMap(matrix, mapEntityRank, mapOfUserProfile);
 				 System.out.println("End page rank"+System.currentTimeMillis());
+				 
+				 //Print the results
 				 aResultHandler.resultRanking(newPersonalizedRank, strFileName);
 				 
 			 }
@@ -69,51 +77,11 @@ public class EntityRankCalculator {
 	}
 	
 	/**
-	 * This method will iterate over each users rating profile and create a ranked list of 
-	 * book ratings and print the output which is a ranked list of books for each user
-	 * 
-	 * @param
-	 * @return 
-	 */
-
-	/*public void entityRankingPerUser(){
-		
-		//Load the row stochastic matrix
-		double[][] rowStochasticSimilarityMatrix = (double[][]) Serializer.load(ProjectVariables.strdataFolder+File.separator+
-				ProjectVariables.strSerialzedDataFolder+File.separator+
-				ProjectVariables.serStochasticMatrix);
-		int iLength = rowStochasticSimilarityMatrix.length;
-		//create the initial vector with value one
-		double[] initRankVector = new double[iLength];
-		ResultHandler aResultHandler = new ResultHandler();
-		for(int i = 0; i < iLength; i++){
-			initRankVector[i] = 1.00;
-		}
-		
-		//Iterate over every user profile and calculate the rank
-		File folder = new File(ProjectVariables.strdataFolder+File.separator
-				+ProjectVariables.strUserFolder);
-		File[] listOfFiles = folder.listFiles(); 
-		
-		for (int i = 0; i < listOfFiles.length; i++) {
-			 if (listOfFiles[i].isFile()) {
-				 String strFileName = listOfFiles[i].getName();
-				 UserRatingCreator aUserRator = new UserRatingCreator();
-				 double[] userRatingVector = aUserRator.userProfileGenerator(listOfFiles[i]);
-				 double[] personalizedBookRank = calculateEntityRank(rowStochasticSimilarityMatrix,
-						 initRankVector, userRatingVector);
-				// aResultHandler.resultRanking(personalizedBookRank, strFileName);
-				 
-				 
-			 }
-		 }		
-	}*/
-	
-	/**
-	 * Map based page rank algorithm
-	 * @param mapOfSimilarity
-	 * @param mapEntityRank
-	 * @param mapUserRating
+	 * * This method will calculate the ranking of each
+	 * entity after a given number of iteration based on a give user's profile
+	 * @param mapOfSimilarity Similarity Map
+	 * @param mapEntityRank Initial Rank for each book
+	 * @param mapUserRating User profile
 	 * @return
 	 */
 	public Map<String, Double> calculateEntityRankMap(Map<String, HashMap<String, Double>> mapOfSimilarity,
@@ -162,6 +130,48 @@ public class EntityRankCalculator {
 		return mapEntityRank;
 	}
 	
+	
+	/**
+	 * This method will iterate over each users rating profile and create a ranked list of 
+	 * book ratings and print the output which is a ranked list of books for each user
+	 * 
+	 * @param
+	 * @return 
+	 */
+
+	/*public void entityRankingPerUser(){
+		
+		//Load the row stochastic matrix
+		double[][] rowStochasticSimilarityMatrix = (double[][]) Serializer.load(ProjectVariables.strdataFolder+File.separator+
+				ProjectVariables.strSerialzedDataFolder+File.separator+
+				ProjectVariables.serStochasticMatrix);
+		int iLength = rowStochasticSimilarityMatrix.length;
+		//create the initial vector with value one
+		double[] initRankVector = new double[iLength];
+		ResultHandler aResultHandler = new ResultHandler();
+		for(int i = 0; i < iLength; i++){
+			initRankVector[i] = 1.00;
+		}
+		
+		//Iterate over every user profile and calculate the rank
+		File folder = new File(ProjectVariables.strdataFolder+File.separator
+				+ProjectVariables.strUserFolder);
+		File[] listOfFiles = folder.listFiles(); 
+		
+		for (int i = 0; i < listOfFiles.length; i++) {
+			 if (listOfFiles[i].isFile()) {
+				 String strFileName = listOfFiles[i].getName();
+				 UserRatingCreator aUserRator = new UserRatingCreator();
+				 double[] userRatingVector = aUserRator.userProfileGenerator(listOfFiles[i]);
+				 double[] personalizedBookRank = calculateEntityRank(rowStochasticSimilarityMatrix,
+						 initRankVector, userRatingVector);
+				// aResultHandler.resultRanking(personalizedBookRank, strFileName);
+				 
+				 
+			 }
+		 }		
+	}*/
+	
 	/**
 	 * . 
 	 * This method will calculate the ranking of each
@@ -173,7 +183,7 @@ public class EntityRankCalculator {
 	 * @return Ranked Entities
 	 */
 	
-	public double[] calculateEntityRank(double[][] rowStochasticSimilarityMatrix, 
+	/*public double[] calculateEntityRank(double[][] rowStochasticSimilarityMatrix, 
 			double[] entityRankVector, double[] userRating){
 		
 		int iIteCount = 0;
@@ -208,9 +218,6 @@ public class EntityRankCalculator {
 		}
 		return entityRankVector;
 		
-	}
-	
-	
-
+	}*/
 	
 }

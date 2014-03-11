@@ -35,7 +35,7 @@ public class UserRatingCreator {
 	 * This is the main method for creating the user profile vector
 	 * 
 	 * @param filename contains user profiles
-	 * @return User Rating Vector which has normalized ratings for each book 
+	 * @return User Rating Map which has normalized ratings for each book 
 	 */
 	
 	public Map<String, Double> userProfileGenerator(File fileName){
@@ -50,7 +50,7 @@ public class UserRatingCreator {
 	 * This method will create the user profile vector which has user ratings for each book
 	 * 
 	 * @param HashMap contains the integer ratings for each book per user
-	 * @return User Rating Vector which has normalized ratings for each book 
+	 * @return HashMap contains the normalized rating for each book per user 
 	 */
 	
 	private Map<String, Double> createUserRatingVector(Map<String, Integer> mapUserRatings){
