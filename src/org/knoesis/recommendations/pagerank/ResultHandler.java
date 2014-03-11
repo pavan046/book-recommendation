@@ -101,7 +101,9 @@ public class ResultHandler {
 				Map.Entry mEntry = (Map.Entry) ite.next();
 				String strBookURI = (String) mEntry.getKey();
 				double dValue = (double)mEntry.getValue();
-				out.println(strBookURI+"\t"+dValue);
+				if(dValue != 0.0){
+					out.println(strBookURI+"\t"+dValue);
+				}
 			}
 			out.close();
 		} catch (IOException e) {

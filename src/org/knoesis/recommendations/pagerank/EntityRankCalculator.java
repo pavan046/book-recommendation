@@ -24,18 +24,6 @@ public class EntityRankCalculator {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		/*EntityRankCalculator aRankCal = new EntityRankCalculator();
-		double[][] similarityBookMatrix = {{0.0,0.7273,0.0909,0.1818},
-										 	{0.5161,0.0,0.3226,0.1613},
-										 	{0.0667,0.3333,0.0,0.6},
-										 	{0.1481,0.1852,0.6667,0.0}};
-		double[] initRankVector = {1, 1, 1, 1};
-		double[] userRating = {0.5, 0.2, 0.1, 0.2};
-		aRankCal.calculateEntityRank(similarityBookMatrix, initRankVector, userRating);*/
-		
-		/*double[][] simBook = {{0.3, 0.2, 0.0},{0.5, 0.1, 0.0},{0.0, 0.0, 0.0}};
-		aRankCal.createRowStochasticMatrix(simBook);*/
-		
 		EntityRankCalculator aRankCal = new EntityRankCalculator();
 		aRankCal.entityRankingUserMap();
 		
@@ -69,7 +57,9 @@ public class EntityRankCalculator {
 				 //Get the relevant User profile
 				 UserRatingCreator aUserRator = new UserRatingCreator();
 				 Map<String, Double> mapOfUserProfile = aUserRator.userProfileGenerator(listOfFiles[i]);
+				 System.out.println("Begin page rank"+System.currentTimeMillis());
 				 Map<String, Double> newPersonalizedRank = calculateEntityRankMap(matrix, mapEntityRank, mapOfUserProfile);
+				 System.out.println("End page rank"+System.currentTimeMillis());
 				 aResultHandler.resultRanking(newPersonalizedRank, strFileName);
 				 
 			 }
@@ -132,8 +122,10 @@ public class EntityRankCalculator {
 		int iIteCount = 0;
 		
 		while(iIteCount < ProjectVariables.MAX_ITERATIONS){ //LOOP will iterate over MAX_ITERATIONS
+			
 			Set<String> aSetofEntities = mapEntityRank.keySet();
 			for(String aEntity : aSetofEntities){
+				
 				double dWeightedSum = 0.0;
 				double dUserRating = 0.0;
 				double dCurrentRankValue = mapEntityRank.get(aEntity);
@@ -145,8 +137,9 @@ public class EntityRankCalculator {
 				//Get the connected edges and calculate the weighted sum 
 				Map<String, Double> connectedEdges = mapOfSimilarity.get(aEntity);
 				Set<String> connectedEntities = connectedEdges.keySet();
+				
 				for(String aConnection : connectedEntities){
-					if(aConnection.equalsIgnoreCase("sum")){
+					if(!aConnection.equalsIgnoreCase("sum")){
 						Map<String, Double> aMapOfConnectedEdges = mapOfSimilarity.get(aConnection);
 						double dValue = aMapOfConnectedEdges.get(aEntity);
 						double dSum = aMapOfConnectedEdges.get("sum");
@@ -158,9 +151,10 @@ public class EntityRankCalculator {
 				double dEntityNewRank = (1 - ProjectVariables.DAMPING_FACTOR) * dUserRating + //personalized page rank
 						ProjectVariables.DAMPING_FACTOR * dWeightedSum;	
 				mapEntityRank.put(aEntity, dEntityNewRank);
-				System.out.println("Iteration :"+iIteCount);
+				
 			}
 			
+			System.out.println("Iteration :"+iIteCount);
 			iIteCount++;
 			
 		}
