@@ -6,9 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.knoesis.utils.ProjectVariables;
+import org.knoesis.utils.Serializer;
 
 public class StochasticMatrixBuilder {
 	
@@ -19,7 +21,7 @@ public class StochasticMatrixBuilder {
     	aMapMatrixBuilder.mapMatrixBuilder();
     }
     
-    public void mapMatrixBuilder() {
+    public Map<String, HashMap<String, Double>> mapMatrixBuilder() {
     	
     	String strFileName = ProjectVariables.strdataFolder+File.separator
 				+ProjectVariables.strInputSimilarityFolder+File.separator+ProjectVariables.inputSimilarityFile;
@@ -68,7 +70,13 @@ public class StochasticMatrixBuilder {
 	        }
 	        read.close();
 	        System.out.println("Total Number of Books: "+matrix.keySet().size());
-	        i=0; 
+	        /*Serializer.serialize(ProjectVariables.strdataFolder+File.separator+
+					ProjectVariables.strSerialzedDataFolder+File.separator+
+					ProjectVariables.serMapMatrixIndex, 
+	        		matrix);*/
+	        
+	        return matrix;
+	        //i=0; 
 	        /*for(String book: matrix.keySet()){
 	            i++;
 	            System.out.println(i+": "+ book+": " + matrix.get(book).size() + " :"+matrix.get(book).get("sum"));
@@ -83,6 +91,7 @@ public class StochasticMatrixBuilder {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
         
         
     }

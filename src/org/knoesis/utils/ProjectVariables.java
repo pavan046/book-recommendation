@@ -10,6 +10,7 @@ public interface ProjectVariables {
 	public static final String inputSimilarityFile = "Nier-ESWC-Rec-Challenge-three-Decimals.tsv";
 	
 	public static final String strSerialzedDataFolder = "SerializedObjects";
+	public static final String serMapMatrixIndex = "MapMapMatrixIndex";
 	public static final String serMatrix = "SerProbabilityMatrix";
 	public static final String serStochasticMatrix = "SerRowStochasticMatrix";
 	public static final String serElementListFile = "List-of-Element";
