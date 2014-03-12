@@ -1,4 +1,4 @@
-package org.knoesis.recommendations.pagerank;
+package org.knoesis.recommendation.matrix;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,30 +6,61 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
+import org.knoesis.userprofile.UserProfileGeneratorFromESWCData;
 import org.knoesis.utils.ProjectVariables;
-import org.knoesis.utils.Serializer;
+import org.mortbay.jetty.servlet.HashSessionIdManager;
 
-public class StochasticMatrixBuilder {
+public class UserSpecificStochasticMatrixBuilder implements MatrixBuilder{
 	
-	
-    public static void main(String[] args) throws IOException {
-    	
-    	StochasticMatrixBuilder aMapMatrixBuilder = new StochasticMatrixBuilder();
-    	aMapMatrixBuilder.mapMatrixBuilder();
-    }
-    
-    public Map<String, HashMap<String, Double>> mapMatrixBuilder() {
-    	
-    	String strFileName = ProjectVariables.strdataFolder+File.separator
-				+ProjectVariables.strInputSimilarityFolder+File.separator+ProjectVariables.inputSimilarityFile;
+	private static String userProfileFile, matrixFileName; 
+	private static Set<String> userProfileEntities; 
+	/**
+	 * Needs the user 
+	 * @param userProfileFile
+	 * @param matrixFileName
+	 */
+	public UserSpecificStochasticMatrixBuilder(String userProfileFile, String matrixFileName) {
+		this.userProfileFile = userProfileFile; 
+		readUserProfile(); 
+		//For now 
+    	this.matrixFileName = ProjectVariables.strdataFolder+File.separator
+		+ProjectVariables.strInputSimilarityFolder+File.separator+ProjectVariables.inputSimilarityFile;
+	}
+	/**
+	 * 
+	 */
+	private void readUserProfile() {
+		BufferedReader read;
+		String line=null; 
+		try {
+			read = new BufferedReader(new FileReader(this.userProfileFile));
+			while((line = read.readLine())!=null){
+				String[] objects = line.split("\t"); 
+				userProfileEntities.add(objects[0]); 
+			}
+			read.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public Map<String, HashMap<String, Double>> mapMatrixBuilder() {
+		String strFileName = this.matrixFileName;
         BufferedReader read;
+    	Map<String, HashMap<String, Double>> matrix = new HashMap<String, HashMap<String,Double>>();
+	     
 		try {
 			read = new BufferedReader(new FileReader(strFileName));
-			Map<String, HashMap<String, Double>> matrix = new HashMap<String, HashMap<String,Double>>();
-	        String line = null;
+		   String line = null;
 	        int i=0;
 	        
 	        while((line = read.readLine())!=null){
@@ -70,29 +101,32 @@ public class StochasticMatrixBuilder {
 	        }
 	        read.close();
 	        System.out.println("Total Number of Books: "+matrix.keySet().size());
-	        /*Serializer.serialize(ProjectVariables.strdataFolder+File.separator+
-					ProjectVariables.strSerialzedDataFolder+File.separator+
-					ProjectVariables.serMapMatrixIndex, 
-	        		matrix);*/
 	        
-	        return matrix;
-	        //i=0; 
-	        /*for(String book: matrix.keySet()){
-	            i++;
-	            System.out.println(i+": "+ book+": " + matrix.get(book).size() + " :"+matrix.get(book).get("sum"));
-	        }*/
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
-        
-        
-    }
+		removeUserNonSpecificNodes(matrix); 
+        return matrix;
+   }
+	/**
+	 * Remove entities that are not at hop 2 from the profiled entities
+	 * @param matrix
+	 */
+	private void removeUserNonSpecificNodes(
+			Map<String, HashMap<String, Double>> matrix) {
+		Set<String> userEntities = new HashSet<>(); 
+		userEntities.addAll(userProfileEntities); 
+		for(String entity: userProfileEntities){
+			userEntities.addAll(matrix.get(entity).keySet());
+		}
+		for(String entity:matrix.keySet()){
+			if(!userEntities.contains(entity))
+				matrix.remove(entity);
+		}
+	}
+
 }
