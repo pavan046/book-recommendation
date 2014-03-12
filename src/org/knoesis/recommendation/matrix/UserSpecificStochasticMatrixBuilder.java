@@ -38,7 +38,7 @@ public class UserSpecificStochasticMatrixBuilder implements MatrixBuilder{
 		BufferedReader read;
 		String line=null; 
 		try {
-			read = new BufferedReader(new FileReader(this.userProfileFile));
+			read = new BufferedReader(new FileReader(new File(this.userProfileFile)));
 			while((line = read.readLine())!=null){
 				String[] objects = line.split("\t"); 
 				userProfileEntities.add(objects[0]); 
