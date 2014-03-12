@@ -92,7 +92,7 @@ public class EntityRankCalculator {
 		while(iIteCount < ProjectVariables.MAX_ITERATIONS){ //LOOP will iterate over MAX_ITERATIONS
 			
 			Set<String> aSetofEntities = mapEntityRank.keySet();
-			for(String aEntity : aSetofEntities){
+			for(String aEntity: aSetofEntities){
 				
 				double dWeightedSum = 0.0;
 				double dUserRating = 0.0;
@@ -117,11 +117,15 @@ public class EntityRankCalculator {
 				
 				//Calculate the new rank value
 				double dEntityNewRank = (1 - ProjectVariables.DAMPING_FACTOR) * dUserRating + //personalized page rank
-						ProjectVariables.DAMPING_FACTOR * dWeightedSum;	
+						ProjectVariables.DAMPING_FACTOR * dWeightedSum;
+				// Checking the number of iterations. 
+				if(mapEntityRank.containsKey(aEntity))
+					if(dEntityNewRank == mapEntityRank.get(aEntity))
+						continue;
+				
 				mapEntityRank.put(aEntity, dEntityNewRank);
 				
 			}
-			
 			System.out.println("Iteration :"+iIteCount);
 			iIteCount++;
 			
