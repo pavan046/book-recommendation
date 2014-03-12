@@ -35,6 +35,7 @@ public class UserSpecificStochasticMatrixBuilder implements MatrixBuilder{
 	 * 
 	 */
 	private void readUserProfile() {
+		userProfileEntities = new HashSet<String>();
 		BufferedReader read;
 		String line=null; 
 		try {
