@@ -24,7 +24,8 @@ public class UserSpecificStochasticMatrixBuilder implements MatrixBuilder{
 	 * @param matrixFileName
 	 */
 	public UserSpecificStochasticMatrixBuilder(String userProfileFile, String matrixFileName) {
-		this.userProfileFile = userProfileFile; 
+		this.userProfileFile = ProjectVariables.strdataFolder+File.separator
+				+ProjectVariables.strUserFolder+File.separator+2;; 
 		readUserProfile(); 
 		//For now 
     	this.matrixFileName = ProjectVariables.strdataFolder+File.separator

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.knoesis.recommendation.matrix.StochasticMatrixBuilder;
+import org.knoesis.recommendation.matrix.UserSpecificStochasticMatrixBuilder;
 import org.knoesis.utils.ProjectVariables;
 import org.knoesis.utils.Serializer;
 
@@ -37,7 +38,8 @@ public class EntityRankCalculator {
 	 
 	public void entityRankingUserMap(){
 		// FIXME: added a null object for StochasticMatrixBuilder
-		StochasticMatrixBuilder aStochasticMatrixBuilder = new StochasticMatrixBuilder(null);
+		//StochasticMatrixBuilder aStochasticMatrixBuilder = new StochasticMatrixBuilder(null);
+		UserSpecificStochasticMatrixBuilder aStochasticMatrixBuilder = new UserSpecificStochasticMatrixBuilder(null, null);
 		Map<String, HashMap<String, Double>> matrix = aStochasticMatrixBuilder.mapMatrixBuilder();
 		
 		ResultHandler aResultHandler = new ResultHandler();
