@@ -32,20 +32,18 @@ public class ResultHandler {
 	 * @return Sorted map based on the value 
 	 */
 	
-	public void resultRanking(double[] scoreList, String fileName){
+	public void resultRanking(Map<String, Double> aMapOfBookRankings, String fileName){
 		
-		List<String> listOfElements = (List<String>) Serializer.load(ProjectVariables.strdataFolder+File.separator+
-				ProjectVariables.strSerialzedDataFolder+File.separator+
-				ProjectVariables.serElementListFile);
 		
-		Map<String, Double> aMapOfBookRankings = new HashMap<String, Double>();
+		
+		//Map<String, Double> aMapOfBookRankings = new HashMap<String, Double>();
 		
 		//Store the book values in a map with URI as the key and score as the value
-		for(int i = 0; i < listOfElements.size(); i++){
+		/*for(int i = 0; i < listOfElements.size(); i++){
 			String strBookURI = listOfElements.get(i);
 			aMapOfBookRankings.put(strBookURI, scoreList[i]);
 
-		}
+		}*/
 		
 		//Sort the map by value
 		aMapOfBookRankings = sortByValue(aMapOfBookRankings);
@@ -103,7 +101,9 @@ public class ResultHandler {
 				Map.Entry mEntry = (Map.Entry) ite.next();
 				String strBookURI = (String) mEntry.getKey();
 				double dValue = (double)mEntry.getValue();
-				out.println(strBookURI+"\t"+dValue);
+				if(dValue != 0.0){
+					out.println(strBookURI+"\t"+dValue);
+				}
 			}
 			out.close();
 		} catch (IOException e) {

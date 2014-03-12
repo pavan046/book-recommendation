@@ -9,6 +9,7 @@ import org.knoesis.recommendations.mergemetric.SimpleMerger;
 import org.knoesis.relatedness.SpotlightRelatedness;
 import org.knoesis.userprofile.DummyUserProfile;
 import org.knoesis.userprofile.TSVUserProfileGenerator;
+import org.knoesis.userprofile.UserProfileGeneratorFromESWCData;
 import org.knoesis.utils.ValueComparator;
 
 /**
@@ -26,14 +27,18 @@ public class TopNBookRecommendations {
 		// TODO: User Profilles
 		// Dummy Profile
 		//DummyUserProfile userProfileGenerator = new DummyUserProfile();
-		TSVUserProfileGenerator userProfileGenerator = new TSVUserProfileGenerator("data/profiles/UserBooksPablo.tsv");
+		//TSV user profile generator
+		//TSVUserProfileGenerator userProfileGenerator = new TSVUserProfileGenerator("data/profiles/UserBooksPablo.tsv");
+		UserProfileGeneratorFromESWCData userProfileGenerator = new UserProfileGeneratorFromESWCData();
 		Map<String, Double> userBookProfile = new HashMap<String, Double>();
 		Map<String, Double> finalRecommendations = new HashMap<>();
 		SimpleMerger merger;
 		// TODO: Read the user profile
 
 		// Initializing merger
-		userBookProfile = userProfileGenerator.generateUserProfile();
+		String user = "6873";
+		userBookProfile = userProfileGenerator.generateUserProfile(user);
+		System.out.println("User: "+user+" with " + userBookProfile.size() );
 		merger = new SimpleMerger(userBookProfile.size());
 		// For each of the books call the spotlight relatedness to get the top books
 		for(String book: userBookProfile.keySet()){

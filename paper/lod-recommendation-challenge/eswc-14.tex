@@ -1,0 +1,133 @@
+%%%%%%%%%%%%%%%%%%%%%%% file typeinst.tex %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is the LaTeX source for the instructions to authors using
+% the LaTeX document class 'llncs.cls' for contributions to
+% the Lecture Notes in Computer Sciences series.
+% http://www.springer.com/lncs       Springer Heidelberg 2006/05/04
+%
+% It may be used as a template for your own input - copy it
+% to a new file with a new name and use it as the basis
+% for your article.
+%
+% NB: the document class 'llncs' has its own and detailed documentation, see
+% ftp://ftp.springer.de/data/pubftp/pub/tex/latex/llncs/latex2e/llncsdoc.pdf
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[runningheads,a4paper]{llncs}
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{paralist}
+\usepackage{url}
+\usepackage{subfigure}
+\usepackage{listings} 
+\usepackage{caption}
+\usepackage{wrapfig}
+
+
+\lstloadlanguages{html,xml}
+\definecolor{grey}{rgb}{0.9,0.9,0.9} 
+\lstset{
+        tabsize=2, 
+        frame=single, 
+        breaklines=true, 
+        basicstyle=\footnotesize\ttfamily,
+        backgroundcolor=\color{grey},
+        xleftmargin=0mm,
+        xrightmargin=0mm,
+        captionpos=b
+}
+
+\urldef{\mailsa}\path|{pavan, pablo, amit}@deri.org|    
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\graphicspath{./images/}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png}	
+
+\usepackage{color} 
+\definecolor{gray}{rgb}{0.7,0.7,0.7}
+\definecolor{blue}{rgb}{0.1,0.1,0.5}
+\newcommand{\attention}[1]{{\color{red}\textbf{#1}}}
+%\newcommand{\comment}[1]{\textit{\color{blue}#1}}
+%\newcommand{\comment}[2]{{\color{blue}\textit{\textbf{#1}}(\textit{#2})}}
+\newcommand{\comment}[2]{}
+
+\newcommand{\teqtag}{\hfill\stepcounter{equation}(\theequation)}
+%\newcommand{\softdelete}[1]{{\color{gray}\textit{#1}}}
+\newcommand{\softdelete}[1]{}
+
+\newcommand{\uri}[1]{\texttt{#1}}
+\newcommand{\literal}[1]{`\textit{#1}'}
+\newcommand{\BibTeX}{{\sc Bib}\TeX}
+\lstset{basicstyle=\small}
+\begin{document}
+
+\mainmatter  % start of an individual contribution
+
+% first the title is needed
+\title{Random Walk on Semantic Similarity for LOD Recommendation\thanks{Would like to thank..}}
+
+% a short form should be given in case it is too long for the running head
+\titlerunning{Hierarchical Interest Graph}
+
+% the name(s) of the author(s) follow(s) next
+%
+% NB: Chinese authors should write their first names(s) in front of
+% their surnames. This ensures that the names appear correctly in
+% the running heads and the author index.
+%
+%\author{Pavan Kapanipathi\and Julia Anaya\and Alexandre Passant}
+%
+% (feature abused for this document to repeat the title also on left hand pages)
+
+% the affiliations are given next; don't give your e-mail address
+% unless you accept that it will be published
+\author{Pavan Kapanipathi\inst{1} \and Sarasi Lalithasena\inst{1} \and Prateek Jain\inst{2} \and Amit Sheth\inst{1}}
+
+\authorrunning{P.Kapanipathi\and P.Jain\and C.Venkataramani\and A.Sheth}
+
+\institute{
+Kno.e.sis Center, Wright State University\\
+%Dayton, OH - USA \\
+{\textbraceleft pavan, amit\textbraceright@knoesis.org}
+\and
+IBM TJ Watson Research Center\\
+%Yorktown Heights, New York, USA\\
+{\textbraceleft jainpr, chitrav\textbraceright@us.ibm.com}
+}
+%\mailsa\\
+%\url{http://www.deri.ie/}}
+
+%
+% NB: a more complex sample for affiliations and the mapping to the
+% corresponding authors can be found in the file "llncs.dem"
+% (search for the string "\mainmatter" where a contribution starts).
+% "llncs.dem" accompanies the document class "llncs.cls".
+%
+
+%\toctitle{Semantic Multicasting}
+\tocauthor{1. First, 2. Second, 3. Third, 4. Fourth, 5. Fifth}
+\maketitle
+
+\begin{abstract}
+Random Walk, Semantic Similarity bla bla 
+
+\keywords{Recommendation, Personalization, User Profiles, Linked Open Data, Wikipediaa, Semantic Similarity, Random Walk}
+\end{abstract}
+%\input{introduction.tex}
+%\input{approach.tex}
+%\input{evaluation.tex}
+%\input{related.tex}
+%\input{conclusion.tex}
+
+
+\bibliographystyle{plain}
+\bibliography{eswc-14-compress}
+\end{document}

@@ -35,14 +35,14 @@ public class UserRatingCreator {
 	 * This is the main method for creating the user profile vector
 	 * 
 	 * @param filename contains user profiles
-	 * @return User Rating Vector which has normalized ratings for each book 
+	 * @return User Rating Map which has normalized ratings for each book 
 	 */
 	
-	public double[] userProfileGenerator(File fileName){
+	public Map<String, Double> userProfileGenerator(File fileName){
 		
 		Map<String, Integer> mapOfUserRatings = readUserFileRatings(fileName);
-		double[] userRatingVector = createUserRatingVector(mapOfUserRatings);
-		return userRatingVector;
+		Map<String, Double> mapOfUserRatingsDoub = createUserRatingVector(mapOfUserRatings);
+		return mapOfUserRatingsDoub;
 	}
 	
 	/**
@@ -50,16 +50,13 @@ public class UserRatingCreator {
 	 * This method will create the user profile vector which has user ratings for each book
 	 * 
 	 * @param HashMap contains the integer ratings for each book per user
-	 * @return User Rating Vector which has normalized ratings for each book 
+	 * @return HashMap contains the normalized rating for each book per user 
 	 */
 	
-	private double[] createUserRatingVector(Map<String, Integer> mapUserRatings){
+	private Map<String, Double> createUserRatingVector(Map<String, Integer> mapUserRatings){
 		
-		List<String> listOfElements = (List<String>) Serializer.load(ProjectVariables.strdataFolder+File.separator+
-				ProjectVariables.strSerialzedDataFolder+File.separator+
-				ProjectVariables.serElementListFile);
-		
-		double[] dUserRatings = new double[listOfElements.size()];
+		//double[] dUserRatings = new double[listOfElements.size()];
+		Map<String, Double> mapOfUserRatings = new HashMap<String, Double>();
 		
 		Iterator it = mapUserRatings.entrySet().iterator();
 		int iRatingSum = 0;
@@ -78,11 +75,10 @@ public class UserRatingCreator {
 				dNormalizedRating = (double)iRating / (double)iRatingSum;
 			}
 			
-			int iElementPos = listOfElements.indexOf(strBookURI);
-			dUserRatings[iElementPos] = dNormalizedRating;
+			mapOfUserRatings.put(strBookURI, dNormalizedRating);
 		}
 		
-		return dUserRatings;
+		return mapOfUserRatings;
 		
 	}
 	

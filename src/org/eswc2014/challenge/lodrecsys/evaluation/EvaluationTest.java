@@ -18,11 +18,11 @@ public class EvaluationTest {
 
     public static void main(String[] args) {
         try {
-            String scoreTrainingFile = "scores-training.dat";
-            String scoreTestFile = "scores-test.dat";
+            String scoreTrainingFile = "data/eswc-evaluation-metrics/scores-training.dat";
+            String scoreTestFile = "data/eswc-evaluation-metrics/scores-test.dat";
 
-            String itemAttributeFile = "item-attributes.dat";
-            String itemCategoryFile = "item-categories.dat";
+            String itemAttributeFile = "data/eswc-evaluation-metrics/item-attributes.dat";
+            String itemCategoryFile = "data/eswc-evaluation-metrics/item-categories.dat";
 
             EvaluationScores scores = new EvaluationScores(scoreTrainingFile, scoreTestFile);
 
