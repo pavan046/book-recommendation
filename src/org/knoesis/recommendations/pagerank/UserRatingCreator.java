@@ -97,7 +97,9 @@ public class UserRatingCreator {
 			
 			Scanner aScan = new Scanner(fileName);
 			while(aScan.hasNextLine()){
+				
 				String aLine = aScan.nextLine().trim();
+				//System.out.println(aLine);
 				String[] items = aLine.split("\t");
 				aMapOfRatings.put(items[0].trim(),Integer.parseInt((items[1].trim())));
 			}

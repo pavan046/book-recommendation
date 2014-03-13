@@ -92,7 +92,7 @@ public class EntityRankCalculator {
 
 	}
 	/**
-	 * Replicated the above function for testing 
+	 * Replicated the above function for testing not using this
 	 * PAVAN :D
 	 */
 	public void entityRankingUserMapEachUser(){
