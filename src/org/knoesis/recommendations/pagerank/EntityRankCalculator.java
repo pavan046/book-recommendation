@@ -27,7 +27,7 @@ public class EntityRankCalculator {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		EntityRankCalculator aRankCal = new EntityRankCalculator();
-		aRankCal.entityRankingUserMapEachUser();
+		aRankCal.entityRankingUserMap();
 
 	}
 
@@ -37,16 +37,9 @@ public class EntityRankCalculator {
 	 */
 
 	public void entityRankingUserMap(){
-		// FIXME: added a null object for StochasticMatrixBuilder
-		//StochasticMatrixBuilder aStochasticMatrixBuilder = new StochasticMatrixBuilder(null);
-		UserSpecificStochasticMatrixBuilder aStochasticMatrixBuilder = 
-				new UserSpecificStochasticMatrixBuilder(null, null);
-		Map<String, HashMap<String, Double>> matrix = aStochasticMatrixBuilder.mapMatrixBuilder();
-
+	
 		ResultHandler aResultHandler = new ResultHandler();
-
-
-		//User profiles
+		
 		//Iterate over every user profile and calculate the rank
 		File folder = new File(ProjectVariables.strdataFolder+File.separator
 				+ProjectVariables.strUserFolder);
@@ -55,7 +48,19 @@ public class EntityRankCalculator {
 		for (int i = 0; i < listOfFiles.length; i++) {//each file contains a user profile
 			if (listOfFiles[i].isFile()) {
 				String strFileName = listOfFiles[i].getName();
-
+				System.out.println("Begin User : "+strFileName+" "+System.currentTimeMillis());
+				//Each user will have a seperate stochastic matrix based on its dangling nodes
+				//input similarity file
+				String similarityFilePathName = ProjectVariables.strdataFolder+File.separator
+						+ProjectVariables.strInputSimilarityFolder+File.separator+ProjectVariables.inputSimilarityFile;
+				//user profile file
+				String userFilePath = ProjectVariables.strdataFolder+File.separator
+						+ProjectVariables.strUserFolder+File.separator+strFileName;
+				
+				UserSpecificStochasticMatrixBuilder aStochasticMatrixBuilder = 
+						new UserSpecificStochasticMatrixBuilder(userFilePath, similarityFilePathName);
+				Map<String, HashMap<String, Double>> matrix = aStochasticMatrixBuilder.mapMatrixBuilder();
+				
 				//Assign an initial rank to each book 
 				Map<String, Double> mapEntityRank = new HashMap<String, Double>();
 				for(String aElement: matrix.keySet()){
@@ -67,13 +72,20 @@ public class EntityRankCalculator {
 				Map<String, Double> mapOfUserProfile = aUserRator.userProfileGenerator(listOfFiles[i]);
 
 				//Calculate the personalized page rank
-				System.out.println("Begin page rank"+System.currentTimeMillis());
+				//System.out.println("Begin page rank : "+System.currentTimeMillis());
 				Map<String, Double> newPersonalizedRank = calculateEntityRankMap(matrix, mapEntityRank, mapOfUserProfile);
-				System.out.println("End page rank"+System.currentTimeMillis());
+				//System.out.println("End page rank"+System.currentTimeMillis());
+				
+				//Remove the books users already read from the recommendation list
+				for(String aReadBooks : mapOfUserProfile.keySet()){
+					if(newPersonalizedRank.containsKey(aReadBooks)){
+						newPersonalizedRank.remove(aReadBooks);
+					}
+				}
 
 				//Print the results
 				aResultHandler.resultRanking(newPersonalizedRank, strFileName);
-
+				System.out.println(" Number of users finished :"+i+" End User : "+strFileName+" "+System.currentTimeMillis());
 			}
 		}
 
@@ -166,7 +178,7 @@ public class EntityRankCalculator {
 				mapEntityRank.put(aEntity, dEntityNewRank);
 
 			}
-			System.out.println("Iteration :"+iIteCount);
+			//System.out.println("Iteration :"+iIteCount);
 			iIteCount++;
 
 		}

@@ -25,8 +25,8 @@ public class UserSpecificStochasticMatrixBuilder implements MatrixBuilder{
 		this.matrixFileName = matrixFileName; 
 		this.userProfileFile = userProfileFile; 
 		//for now 
-		this.matrixFileName = "data/dbpedia/nier-3-dec.tsv"; 
-		this.userProfileFile = "data/dbpedia/706";
+		//this.matrixFileName = "data/dbpedia/nier-3-dec.tsv"; 
+		//this.userProfileFile = "data/dbpedia/706";
 		readUserProfile(); 
 		//For now 
 		//this.matrixFileName = ProjectVariables.strdataFolder+File.separator
@@ -88,8 +88,8 @@ public class UserSpecificStochasticMatrixBuilder implements MatrixBuilder{
 						sumForStochasticEntities.put(objects[1], sum);
 					}
 				}
-				if(i%1000000 == 0)
-					System.out.println(i+": "+matrix.keySet().size()+": "+ System.currentTimeMillis());
+//				if(i%1000000 == 0)
+//					System.out.println(i+": "+matrix.keySet().size()+": "+ System.currentTimeMillis());
 			}
 			addDanglingEntitiesToMatrix(matrix); 
 			makeMatrixStochastic(matrix);
@@ -171,10 +171,10 @@ public class UserSpecificStochasticMatrixBuilder implements MatrixBuilder{
 					else if (userProfileEntities.contains(objects[1]))
 						allEntities.add(objects[0]);
 				}
-				if(i%1000000==0)
-					System.out.println("Entities got for this user at " + i +" "+allEntities.size());
+				/*if(i%1000000==0)
+					System.out.println("Entities got for this user at " + i +" "+allEntities.size());*/
 			}
-			System.out.println("Entities got for this user at " + i +" "+allEntities.size());
+			/*System.out.println("Entities got for this user at " + i +" "+allEntities.size());*/
 			read.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
