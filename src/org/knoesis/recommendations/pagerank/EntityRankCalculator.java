@@ -1,6 +1,10 @@
 package org.knoesis.recommendations.pagerank;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -41,10 +45,68 @@ public class EntityRankCalculator {
 		ResultHandler aResultHandler = new ResultHandler();
 		
 		//Iterate over every user profile and calculate the rank
-		File folder = new File(ProjectVariables.strdataFolder+File.separator
-				+ProjectVariables.strUserFolder);
-		File[] listOfFiles = folder.listFiles(); 
+		BufferedReader read;
+		try {
+			read = new BufferedReader(new FileReader(ProjectVariables.strdataFolder+File.separator+
+					ProjectVariables.strInputUserFile));
+			String line = null;
+			int i = 1;
+			while((line = read.readLine())!=null){//each line contains a user profile
+				String strFileName = line.trim();
+				System.out.println("Begin User : "+strFileName+" "+System.currentTimeMillis());
+				//Each user will have a seperate stochastic matrix based on its dangling nodes
+				//input similarity file
+				String similarityFilePathName = ProjectVariables.strdataFolder+File.separator
+						+ProjectVariables.strInputSimilarityFolder+File.separator+ProjectVariables.inputSimilarityFile;
+				//user profile file
+				String userFilePath = ProjectVariables.strdataFolder+File.separator
+						+ProjectVariables.strUserFolder+File.separator+strFileName;
+				
+				UserSpecificStochasticMatrixBuilder aStochasticMatrixBuilder = 
+						new UserSpecificStochasticMatrixBuilder(userFilePath, similarityFilePathName);
+				Map<String, HashMap<String, Double>> matrix = aStochasticMatrixBuilder.mapMatrixBuilder();
+				
+				//Assign an initial rank to each book 
+				Map<String, Double> mapEntityRank = new HashMap<String, Double>();
+				for(String aElement: matrix.keySet()){
+					mapEntityRank.put(aElement, 1.00);
+				}
+				
+				//Get the relevant User profile
+				UserRatingCreator aUserRator = new UserRatingCreator();
+				Map<String, Double> mapOfUserProfile = aUserRator.userProfileGenerator(new File(userFilePath));
 
+				//Calculate the personalized page rank
+				//System.out.println("Begin page rank : "+System.currentTimeMillis());
+				Map<String, Double> newPersonalizedRank = calculateEntityRankMap(matrix, mapEntityRank, mapOfUserProfile);
+				//System.out.println("End page rank"+System.currentTimeMillis());
+				
+				//Remove the books users already read from the recommendation list
+				for(String aReadBooks : mapOfUserProfile.keySet()){
+					if(newPersonalizedRank.containsKey(aReadBooks)){
+						newPersonalizedRank.remove(aReadBooks);
+					}
+				}
+				
+				//Print the results
+				aResultHandler.resultRanking(newPersonalizedRank, strFileName);
+				System.out.println(" Number of users finished :"+i+" End User : "+strFileName+" "+System.currentTimeMillis());
+				i++;
+				
+			}
+			read.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		/*//Iterate over every user profile and calculate the rank
+		File folder = new File(ProjectVariables.strdataFolder+File.separator
+						+ProjectVariables.strUserFolder);
+		File[] listOfFiles = folder.listFiles();
 		for (int i = 0; i < listOfFiles.length; i++) {//each file contains a user profile
 			if (listOfFiles[i].isFile()) {
 				String strFileName = listOfFiles[i].getName();
@@ -87,7 +149,7 @@ public class EntityRankCalculator {
 				aResultHandler.resultRanking(newPersonalizedRank, strFileName);
 				System.out.println(" Number of users finished :"+i+" End User : "+strFileName+" "+System.currentTimeMillis());
 			}
-		}
+		}*/
 
 
 	}

@@ -11,6 +11,7 @@ public interface ProjectVariables {
 	
 	public static final String strUserFolder = "users";
 	public static final String strUserResultFolder = "userresults";
+	public static final String strInputUserFile = "remaininguser.txt";
 	
 	//Unused
 	public static final String strSerialzedDataFolder = "SerializedObjects";
